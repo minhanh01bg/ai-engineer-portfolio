@@ -13,7 +13,7 @@ export default function Home() {
     <div className="font-sans min-h-screen">
       <div className="w-full grid grid-cols-1 md:grid-cols-[300px_1fr] gap-2 sm:gap-6">
         <Sidebar />
-        <main className="flex flex-col gap-12 sm:gap-16 items-stretch">
+        <main className="mx-5 flex flex-col gap-12 sm:gap-16 items-stretch">
           <div className="h-px bg-gradient-to-r from-transparent via-[--foreground]/20 to-transparent" />
           <About />
           <div className="h-px bg-gradient-to-r from-transparent via-[--foreground]/20 to-transparent" />

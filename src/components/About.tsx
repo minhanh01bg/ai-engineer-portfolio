@@ -12,8 +12,25 @@ export default function About() {
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.5 }}
       >
-        About me
+        Hi, I'm Vũ Minh Anh
       </motion.h2>
+      <motion.div>
+        <div className="flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-violet-500 transition-transform duration-300 group-hover:scale-110">
+            <path d="M12 2C7 2 3 6 3 11c0 6 9 11 9 11s9-5 9-11c0-5-4-9-9-9z" stroke="currentColor" strokeWidth="1.5"/>
+            <circle cx="12" cy="11" r="3" stroke="currentColor" strokeWidth="1.5"/>
+          </svg>
+          <span>Ha Noi, Vietnam</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-emerald-500 transition-transform duration-300 group-hover:scale-110">
+            <path d="M3 12h18" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M12 3v18" stroke="currentColor" strokeWidth="1.5"/>
+          </svg>
+          <span>Open to work</span>
+        </div>
+        
+      </motion.div>
 
       <motion.div
         className="mt-4 rounded-xl p-5 glass border border-black/10 dark:border-white/15"

@@ -2,6 +2,12 @@ import ProjectCard from "@/components/ProjectCard"
 
 const projects = [
   {
+    title: "AI KC IoT",
+    description: "Research and build AI models to detect cyber attacks on IoT devices, bao gồm các loại tấn công như brute-force (attach password), Port scanning(nmap), DDos (Botnet), 76 loại dữ liệu trong một dòng bao gồm 4 nhãn trong đó có Benign(là bình thường), Còn một loại tấn công nữa thông qua phát hiện địa chỉ ip mạng bất thường bằng cây quyết định",
+    tags: ["Data cleaning","Correlation Matrix","Cân bằng dữ liệu (smote và RandomUnderSampler)", 'RNN', "LSTM"],
+    href: "#",
+  },
+  {
     title: "AI Resume Parser",
     description:
       "LLM-powered parser that extracts structured data from PDFs and ranks candidates.",

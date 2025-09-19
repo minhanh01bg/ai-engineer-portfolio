@@ -77,75 +77,22 @@ export default function Sidebar() {
   }, [])
 
   const InfoCard = (
-    <div className="mb-4 rounded-lg p-5 glass ring-1 ring-black/10 dark:ring-white/10">
-      <div className="flex items-start gap-3">
+    <div className="p-6 transition-all duration-300 hover:shadow-xl">
+      <div className="flex flex-col justify-center items-center gap-3">
         <Image
           src="/a5f91e31-86b7-43d2-b1b7-9dcaab74b830.png"
           alt="Avatar"
-          width={64}
-          height={64}
-          className="h-16 w-16 rounded-full object-cover shadow-sm motion-safe:animate-[scale-in_0.6s_ease-out]"
+          width={48}
+          height={48}
+          className="h-12 w-12 rounded-full object-cover ring-2 ring-violet-300 dark:ring-violet-600 shadow-md transition-transform duration-500 hover:scale-105"
           priority
         />
-        <div className="min-w-0 flex-1">
-          <p className="text-base font-semibold truncate bg-gradient-to-r from-violet-500 to-emerald-400 bg-clip-text text-transparent">
+        <div className="text-center">
+          <p className="text-xl font-semibold transition-all duration-300 hover:from-violet-500 hover:to-emerald-300">
             Minh Anh
           </p>
-          <p className="text-sm text-[--foreground]/75 truncate">AI Engineer</p>
-          <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">
-            <span className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 bg-[--foreground]/5 text-[--foreground]/80">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2C7 2 3 6 3 11c0 6 9 11 9 11s9-5 9-11c0-5-4-9-9-9z" stroke="currentColor" strokeWidth="1.5"/><circle cx="12" cy="11" r="3" stroke="currentColor" strokeWidth="1.5"/></svg>
-              <span>Ha Noi, Vietnam</span>
-            </span>
-            <span className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 bg-gradient-to-r from-violet-500/15 to-emerald-400/15 text-[--foreground]/80">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="currentColor" strokeWidth="1.5"/><path d="M12 3v18" stroke="currentColor" strokeWidth="1.5"/></svg>
-              <span>Open to work</span>
-            </span>
-            <a href="tel:+84912345678" className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/20 transition-colors">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v2a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.46 19.46 0 01-6-6A19.8 19.8 0 012.92 4.18 2 2 0 014.86 2h2a2 2 0 012 1.72c.12.9.3 1.77.57 2.61a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.47-1.47a2 2 0 012.11-.45c.84.27 1.71.45 2.61.57A2 2 0 0122 16.92z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              <span>+84 877 829 956</span>
-            </a>
-          </div>
+          <p className="text-xl text-gray-500 dark:text-gray-300 truncate">AI Engineer</p>
         </div>
-      </div>
-
-      <div className="mt-3 grid grid-cols-3 gap-2">
-        <a
-          href="#contact"
-          className="group inline-flex items-center justify-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm text-[--foreground]/85 hover:text-[--foreground] hover:bg-[--foreground]/10 transition-colors"
-          aria-label="Contact"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="opacity-80 group-hover:opacity-100 motion-safe:animate-[up-down_0.6s_ease-out]"><path d="M4 4h16v16H4z" fill="none"/><path d="M4 6l8 6 8-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><rect x="4" y="6" width="16" height="12" rx="2" stroke="currentColor" strokeWidth="1.5"/></svg>
-          <span>Contact</span>
-        </a>
-        <a
-          href="#"
-          className="group inline-flex items-center justify-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm text-[--foreground]/85 hover:text-[--foreground] hover:bg-[--foreground]/10 transition-colors"
-          aria-label="Resume"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="opacity-80 group-hover:opacity-100"><path d="M6 2h9l5 5v15a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.5"/><path d="M15 2v5h5" stroke="currentColor" strokeWidth="1.5"/><path d="M8 13h8M8 17h8M8 9h4" stroke="currentColor" strokeWidth="1.5"/></svg>
-          <span>Resume</span>
-        </a>
-        <a
-          href="https://github.com/minhanh01bg"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center justify-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm text-[--foreground]/85 hover:text-[--foreground] hover:bg-[--foreground]/10 transition-colors"
-          aria-label="GitHub"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="opacity-80 group-hover:opacity-100 motion-safe:animate-[left-right_0.6s_ease-out]"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.36-3.37-1.36-.46-1.19-1.12-1.5-1.12-1.5-.92-.64.07-.63.07-.63 1.02.07 1.56 1.07 1.56 1.07.9 1.58 2.36 1.12 2.94.85.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.08 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05.8-.23 1.65-.35 2.5-.35.85 0 1.7.12 2.49.35 1.92-1.32 2.76-1.05 2.76-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.64 1.03 2.76 0 3.95-2.34 4.81-4.57 5.07.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .26.18.59.69.49A10.04 10.04 0 0022 12.26C22 6.58 17.52 2 12 2z"/></svg>
-          <span>GitHub</span>
-        </a>
-        <a
-          href="https://www.linkedin.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center justify-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm text-[--foreground]/85 hover:text-[--foreground] hover:bg-[--foreground]/10 transition-colors"
-          aria-label="LinkedIn"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="opacity-80 group-hover:opacity-100 motion-safe:animate-[down-up_0.6s_ease-out]"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v2h.05c.53-1 1.84-2.05 3.8-2.05 4.07 0 4.82 2.68 4.82 6.16V23h-4v-6.5c0-1.55-.03-3.55-2.17-3.55-2.17 0-2.5 1.69-2.5 3.43V23h-4V8.5z"/></svg>
-          <span>LinkedIn</span>
-        </a>
       </div>
     </div>
   )
@@ -267,7 +214,7 @@ export default function Sidebar() {
   }
 
   const NavList = (
-    <div className="relative">
+    <div className="relative p-6">
       {/* Floating active pill */}
       <div
         className="pointer-events-none absolute left-1 right-1 rounded-md bg-gradient-to-r from-[--foreground]/10 to-transparent transition-all duration-300 ease-out"
@@ -331,7 +278,7 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile toggle button */}
-      <div className="md:hidden sticky top-4 z-40 mb-2">
+      <div className="md:hidden sticky top-4 mx-5 z-40 mb-2">
         <div className="flex justify-start">
           <Button
             aria-label={open ? "Close menu" : "Open menu"}
@@ -375,8 +322,7 @@ export default function Sidebar() {
         >
           <nav
             className={cn(
-              "relative rounded-xl p-3",
-              "glass",
+              "relative rounded-xl p-3 bg-white h-full",
               "ring-1 ring-black/10 dark:ring-white/10"
             )}
           >
@@ -391,14 +337,14 @@ export default function Sidebar() {
       <aside className="hidden md:block sticky top-0 self-start h-screen w-full sm:w-[280px] lg:w-[320px]">
         <nav
           className={cn(
-            "relative h-full rounded-xl p-4 overflow-auto",
+            "relative h-full rounded-xl overflow-auto",
             "glass",
             "ring-1 ring-black/10 dark:ring-white/10"
           )}
           aria-label="Mục lục"
         >
           {InfoCard}
-          <div className="my-3 h-px bg-[--foreground]/10" />
+          <div className="border-t w-full border-gray-200" />
           {NavList}
         </nav>
       </aside>
