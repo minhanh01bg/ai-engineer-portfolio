@@ -1,19 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  /* Portfolio theme colors */
-  --primary-1: #141234;
-  --primary-2: #0c0b20;
-  --secondary-1: #1f1d43;
-  --secondary-2: #2c2a54;
-  --btn-primary: #48439D;
-  --btn-primary-hover: #4E49AB;
-  --btn-secondary: #6662BC;
-  --btn-secondary-hover: #7470C2;
-  --link: #ACA9DA;
-  --link-hover: #BAB8E0;
+  --background: #05060d;
+  --background-secondary: #0f1122;
+  --foreground: #f4f4f4;
+  --accent-violet: #8b5cf6;
+  --accent-emerald: #34d399;
+  --surface-1: rgba(255, 255, 255, 0.04);
+  --surface-2: rgba(255, 255, 255, 0.08);
 }
 
 @theme inline {
@@ -23,30 +17,57 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
+  background: radial-gradient(circle at 20% 20%, rgba(129, 140, 248, 0.2), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(16, 185, 129, 0.2), transparent 40%),
+    radial-gradient(circle at 50% 120%, rgba(245, 158, 11, 0.12), transparent 45%),
+    linear-gradient(120deg, #05060d 0%, #030409 40%, #06060f 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Subtle backdrop gradient for a premium feel */
-html {
-  background-image: radial-gradient(60rem 30rem at 10% -10%, rgba(99,102,241,0.14), transparent),
-    radial-gradient(50rem 25rem at 90% -20%, rgba(16,185,129,0.12), transparent),
-    radial-gradient(40rem 20rem at 50% 120%, rgba(234,179,8,0.12), transparent);
-  background-attachment: fixed;
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-height: 100vh;
 }
 
 /* Smooth scrolling for anchor links */
- :root {
+:root {
   scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
+/* Smooth section transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Section wrapper transition effects */
+main > div {
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+section[id] {
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Enhanced smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Optional: Add scroll snap for better tab-like experience */
+  /* Uncomment if you want snap-to-section behavior */
+  /*
+  main {
+    scroll-snap-type: y proximity;
+  }
+  
+  main > div {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  */
 }
 
 /* Custom keyframes ported from portfolio theme */
@@ -71,8 +92,8 @@ html {
 
 /* Card glass effect */
 .glass {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 10px 30px -20px rgba(0,0,0,0.35);
-  backdrop-filter: blur(6px);
+  box-shadow: 0 20px 80px -40px rgba(6, 7, 12, 0.8);
+  backdrop-filter: blur(12px);
 }

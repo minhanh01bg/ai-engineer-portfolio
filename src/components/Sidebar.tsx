@@ -229,7 +229,32 @@ export default function Sidebar() {
               ref={(el) => {
                 itemRefs.current[item.id] = el
               }}
-              onClick={() => setActive(item.id)}
+              onClick={(e) => {
+                setActive(item.id)
+                const target = document.getElementById(item.id)
+                if (target) {
+                  e.preventDefault()
+                  // Scroll to the section with smooth behavior
+                  const wrapper = target.closest('[id$="-wrapper"]') as HTMLElement
+                  if (wrapper) {
+                    wrapper.scrollIntoView({ 
+                      behavior: 'smooth', 
+                      block: 'center' 
+                    })
+                  } else {
+                    target.scrollIntoView({ 
+                      behavior: 'smooth', 
+                      block: 'center' 
+                    })
+                  }
+                  // Update URL hash
+                  setTimeout(() => {
+                    if (window.location.hash !== `#${item.id}`) {
+                      window.history.pushState(null, '', `#${item.id}`)
+                    }
+                  }, 100)
+                }
+              }}
               className={cn(
                 "group block rounded-md pl-8 pr-3 py-2 text-md",
                 "transition-colors motion-safe:transition-transform motion-safe:duration-300",

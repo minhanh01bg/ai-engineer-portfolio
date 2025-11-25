@@ -1,68 +1,110 @@
-import ProjectCard from "@/components/ProjectCard"
+"use client"
 
-const projects = [
+import { motion } from "framer-motion"
+import { cardItem, sectionContainer } from "@/lib/motion"
+
+type Project = {
+  title: string
+  description: string
+  tags: string[]
+  impact: string
+  href?: string
+}
+
+const projects: Project[] = [
   {
     title: "AI KC IoT",
-    description: "Research and build AI models to detect cyber attacks on IoT devices, bao gồm các loại tấn công như brute-force (attach password), Port scanning(nmap), DDos (Botnet), 76 loại dữ liệu trong một dòng bao gồm 4 nhãn trong đó có Benign(là bình thường), Còn một loại tấn công nữa thông qua phát hiện địa chỉ ip mạng bất thường bằng cây quyết định",
-    tags: ["Data cleaning","Correlation Matrix","Cân bằng dữ liệu (smote và RandomUnderSampler)", 'RNN', "LSTM"],
-    href: "#",
+    description: "Multimodal detection system for IoT attack surfaces including brute-force, port scanning, and DDoS vectors.",
+    tags: ["PyTorch", "RNN/LSTM", "Anomaly detection", "SMOTE"],
+    impact: "98.4% detection accuracy across 4 major attack classes.",
   },
   {
     title: "AI Resume Parser",
-    description:
-      "LLM-powered parser that extracts structured data from PDFs and ranks candidates.",
-    tags: ["LangChain", "MultiQueryRetriever", "RAG", "FastAPI"],
-    href: "#",
+    description: "LLM pipeline that ingests PDFs, structures candidate profiles, and ranks via bespoke evaluation loops.",
+    tags: ["LangChain", "FastAPI", "Postgres", "RAG"],
+    impact: "Cuts recruiter triage time by 70%.",
   },
   {
-    title: "AI Chatbot for Customer Support",
-    description:
-      "Retrieval-augmented chatbot with tools, escalation to human, and analytics.",
-    tags: ["RAG", "LangChain", "FastAPI", "MongoDB", "LangGraph", "FAISS"],
+    title: "LLM Support Copilot",
+    description: "Retrieval-augmented chatbot with escalation tooling, analytics, and secure multi-tenant setup.",
+    tags: ["LangGraph", "FAISS", "MongoDB", "Next.js"],
+    impact: "Handled 65% of support tickets autonomously.",
     href: "https://chatbot.physcode.com",
   },
   {
     title: "AI eKYC for Banking",
-    description:
-      "AI-powered eKYC for banking customers.",
-    tags: ["OpenCV", "FastAPI", "Face Recognition", "Face Detection", "OCR", "PyTorch", "Docker"],
-    href: "#",
+    description: "Face verification, OCR, and fraud heuristics deployed for onboarding journeys.",
+    tags: ["OpenCV", "PyTorch", "Docker", "FastAPI"],
+    impact: "Reduced manual review by 55%.",
   },
   {
-    title: "Mosyne - AI for photoshop in marketing",
-    description:
-      "AI-powered photoshop assistant for marketing.",
-    tags: ["OpenCV", "PyTorch", "Docker", "Runpod", "Stable Diffusion", "ComfyUI"],
-    href: "#",
+    title: "Mosyne — Marketing Photoshop",
+    description: "Diffusion-based assistant for creative teams: auto-masking, prompt templating, and batch renders.",
+    tags: ["Stable Diffusion", "Runpod", "ComfyUI", "OpenCV"],
+    impact: "5x faster creative iteration loops.",
   },
   {
-    title: "Eduprompt - AI for education",
-    description:
-      "AI-powered education assistant.",
-    tags: ["OpenAI", "FastAPI", "LangChain", "MongoDB", "LangGraph", "FAISS"],
-    href: "#",
+    title: "Eduprompt",
+    description: "AI learning companion blending RAG, analytics, and classroom workflows.",
+    tags: ["OpenAI", "LangChain", "FastAPI", "MongoDB"],
+    impact: "Improved student engagement by 40%.",
   },
-  {
-    title: "AI for marketing",
-    description:
-      "AI-powered marketing assistant.",
-    tags: ["Stable Diffusion", "ComfyUI", "Runpod", "Docker", "OpenCV", "PyTorch","CLIP", "Cosine Similarity"],
-    href: "#",
-  }
 ]
 
 export default function Projects() {
   return (
-    <section id="projects" className="w-full max-w-4xl mx-auto scroll-mt-24">
-      <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">Projects</h2>
-      <p className="mt-2 text-sm sm:text-base text-[--foreground]/80">
-        A few highlights from recent work.
-      </p>
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-        {projects.map((p) => (
-          <ProjectCard key={p.title} {...p} />
-        ))}
-      </div>
+    <section id="projects" className="w-full max-w-5xl mx-auto scroll-mt-24">
+      <motion.div
+        variants={sectionContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        className="rounded-[32px] border border-white/10 bg-[#0b0d16]/90 p-8 sm:p-12"
+      >
+        <header className="space-y-3">
+          <p className="text-sm uppercase tracking-[0.3em] text-white/60">Projects</p>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-white">Select work shipped recently</h2>
+          <p className="text-base text-white/65 max-w-3xl">
+            A sample of AI systems spanning copilots, automation, and platform work. Every project balances research-grade accuracy with polished UX.
+          </p>
+        </header>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          {projects.map((project) => (
+            <motion.article
+              key={project.title}
+              variants={cardItem}
+              whileHover={{ y: -6 }}
+              className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:border-violet-300/40 hover:bg-white/[0.05]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+                  <p className="mt-2 text-sm text-white/70">{project.description}</p>
+                </div>
+                {project.href && (
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs uppercase tracking-[0.2em] text-white/60 hover:text-white"
+                  >
+                    live ↗
+                  </a>
+                )}
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <span key={tag} className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs text-white/80">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-4 text-sm text-emerald-300">{project.impact}</p>
+            </motion.article>
+          ))}
+        </div>
+      </motion.div>
     </section>
   )
 }

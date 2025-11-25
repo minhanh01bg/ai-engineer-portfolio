@@ -1,50 +1,82 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { cardItem, sectionContainer } from "@/lib/motion"
 
 const stack = [
-  { group: "AI/LLM", items: ["OpenAI", "Llama", "LangChain", "vLLM", "Pinecone"] },
-  { group: "Backend", items: ["Next.js App Router", "FastAPI", "Postgres", "Prisma", "Redis"] },
-  { group: "Data", items: ["Airflow", "dbt", "BigQuery", "DuckDB", "Pandas"] },
-  { group: "Frontend", items: ["React", "Tailwind", "shadcn/ui", "Framer Motion", "Charts"] },
+  {
+    group: "LLM Platforms",
+    note: "Model hosting, fine-tuning, evals",
+    items: ["OpenAI", "Anthropic", "Llama.cpp", "vLLM", "Ollama"],
+  },
+  {
+    group: "Orchestration",
+    note: "Tools, routing, observability",
+    items: ["LangChain", "LangGraph", "LlamaIndex", "OpenTelemetry", "Phoenix"],
+  },
+  {
+    group: "Backend & APIs",
+    note: "Edge-ready services & realtime",
+    items: ["Next.js", "FastAPI", "tRPC", "Prisma", "Postgres", "Redis"],
+  },
+  {
+    group: "Data & Infra",
+    note: "Pipelines, analytics, monitoring",
+    items: ["Airflow", "dbt", "BigQuery", "DuckDB", "Grafana", "S3"],
+  },
+  {
+    group: "Frontend & UX",
+    note: "Motion systems, rapid prototyping",
+    items: ["React", "Tailwind", "shadcn/ui", "Framer Motion", "Three.js"],
+  },
+  {
+    group: "Ops & Tooling",
+    note: "CI/CD, containers, scripting",
+    items: ["Docker", "Kubernetes", "Terraform", "GitHub Actions", "Bash", "Python"],
+  },
 ]
 
 export default function TechStack() {
   return (
-    <section id="stack" className="w-full max-w-4xl mx-auto scroll-mt-24">
-      <motion.h2
-        className="text-2xl sm:text-3xl font-semibold tracking-tight"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.5 }}
+    <section id="stack" className="w-full max-w-5xl mx-auto scroll-mt-24">
+      <motion.div
+        variants={sectionContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.35 }}
+        className="rounded-[32px] border border-white/10 bg-[#0c0f1a]/90 p-8 sm:p-12 backdrop-blur"
       >
-        Tech stack
-      </motion.h2>
-      <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {stack.map((s, idx) => (
-          <motion.div
-            key={s.group}
-            className="rounded-xl p-4 border border-black/10 dark:border-white/15 bg-black/[.02] dark:bg-white/[.02]"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, delay: idx * 0.07 }}
-          >
-            <div className="text-base font-semibold">{s.group}</div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {s.items.map((i) => (
-                <span
-                  key={i}
-                  className="text-xs rounded-md border border-black/10 dark:border-white/15 px-2 py-1 text-[--foreground]/80"
-                >
-                  {i}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </div>
+        <header className="flex flex-col gap-3">
+          <p className="text-sm uppercase tracking-[0.3em] text-white/60">Tech stack</p>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-white">Comprehensive toolchain for AI shipping</h2>
+          <p className="text-base text-white/65 max-w-2xl">
+            Every project gets the right mix of research tooling, production infra, and beautiful UX. This is the stack I deploy weekly.
+          </p>
+        </header>
+
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          {stack.map((section) => (
+            <motion.article
+              key={section.group}
+              variants={cardItem}
+              className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:border-white/25"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <h3 className="text-lg font-semibold text-white">{section.group}</h3>
+                <span className="text-xs uppercase tracking-[0.2em] text-white/60">core</span>
+              </div>
+              <p className="mt-2 text-sm text-white/65">{section.note}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {section.items.map((item) => (
+                  <span key={item} className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs text-white/80">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </motion.div>
     </section>
   )
 }
