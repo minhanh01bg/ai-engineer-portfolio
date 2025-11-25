@@ -31,7 +31,7 @@ export default function About() {
               Portfolio 2025
             </div>
             <h1 className="text-4xl sm:text-5xl font-semibold leading-tight text-white">
-              Hi, I'm Vũ Minh Anh — building AI products end-to-end.
+              {"Hi, I’m Vũ Minh Anh — building AI products end-to-end."}
             </h1>
             <p className="text-base sm:text-lg text-white/70 leading-relaxed">
               I architect data pipelines, craft model workflows, and ship polished UX so AI ideas become measurable business wins. Rapid prototyping, production-grade reliability, and delightful motion design are my defaults.

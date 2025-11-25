@@ -43,7 +43,7 @@ export function ContactIntro() {
     <motion.div className={slideShell} variants={fadeVariant} initial="hidden" animate="visible">
       <div className="space-y-4">
         <p className="text-sm uppercase tracking-[0.3em] text-white/60">Contact</p>
-        <h2 className="text-3xl sm:text-4xl font-semibold text-white">Let's build something together</h2>
+        <h2 className="text-3xl sm:text-4xl font-semibold text-white">{"Let’s build something together"}</h2>
         <p className="text-base text-white/70 max-w-2xl">
           Prefer a quick call, async brief, or dropping me a note? Pick the channel that fits and we can dive into
           roadmaps, scoping, or demos.
