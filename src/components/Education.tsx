@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { cardItem, sectionContainer } from "@/lib/motion"
 
@@ -27,13 +28,12 @@ const education: EducationItem[] = [
 
 export default function Education() {
   return (
-    <section id="education" className="w-full max-w-5xl mx-auto scroll-mt-24">
+    <section id="education" className="w-full max-w-[72rem] mx-auto px-2 sm:px-4 lg:px-8 scroll-mt-24">
       <motion.div
         variants={sectionContainer}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.35 }}
-        className="rounded-[32px] border border-white/10 bg-[#0d0f19]/90 p-8 sm:p-12"
+        animate="visible"
+        className="space-y-10"
       >
         <header className="space-y-3">
           <p className="text-sm uppercase tracking-[0.3em] text-white/60">Education</p>
@@ -60,6 +60,30 @@ export default function Education() {
             </motion.article>
           ))}
         </div>
+
+        <motion.div variants={cardItem} className="mt-10 rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
+            <div className="lg:w-1/2 space-y-3">
+              <p className="text-xs uppercase tracking-[0.3em] text-white/60">Certification</p>
+              <h3 className="text-2xl font-semibold text-white">Ubuntu with WSL</h3>
+              <p className="text-white/70 text-sm">
+                Official Ubuntu certification covering WSL setup, Linux tooling, and cross-platform developer environments.
+              </p>
+            </div>
+            <div className="lg:w-1/2">
+              <div className="relative overflow-hidden rounded-xl border border-white/15 bg-black/40">
+                <Image
+                  src="/certificates/Vu Minh Anh Ubuntu with WSL Certificate.png"
+                  alt="Ubuntu with WSL certificate"
+                  width={900}
+                  height={600}
+                  className="w-full h-auto object-cover transition-transform duration-500 hover:scale-105"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </section>
   )

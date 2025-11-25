@@ -38,13 +38,12 @@ const stack = [
 
 export default function TechStack() {
   return (
-    <section id="stack" className="w-full max-w-5xl mx-auto scroll-mt-24">
+    <section id="stack" className="w-full max-w-[72rem] mx-auto px-2 sm:px-4 lg:px-8 scroll-mt-24">
       <motion.div
         variants={sectionContainer}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.35 }}
-        className="rounded-[32px] border border-white/10 bg-[#0c0f1a]/90 p-8 sm:p-12 backdrop-blur"
+        animate="visible"
+        className="space-y-10"
       >
         <header className="flex flex-col gap-3">
           <p className="text-sm uppercase tracking-[0.3em] text-white/60">Tech stack</p>

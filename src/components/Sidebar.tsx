@@ -1,9 +1,8 @@
 "use client"
 
-import Link from "next/link"
 import Image from "next/image"
 import { useId } from "react"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -18,80 +17,36 @@ const navItems: NavItem[] = [
   { id: "contact", label: "Contact" },
 ]
 
-export default function Sidebar() {
+type SidebarProps = {
+  activeSection: string
+  onSelect: (id: string) => void
+}
+
+export default function Sidebar({ activeSection, onSelect }: SidebarProps) {
   const gradientSuffix = useId()
   const gradientSuffixSafe = gradientSuffix.replace(/[^a-zA-Z0-9_-]/g, "")
-  const [active, setActive] = useState<string>("top")
   const [open, setOpen] = useState<boolean>(false)
-  const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({})
-  const [indicator, setIndicator] = useState<{ top: number; height: number }>({ top: 0, height: 0 })
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute("id") || ""
-            if (id) setActive(id)
-          }
-        }
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: [0, 0.25, 0.5, 1] }
-    )
-
-    navItems.forEach((item) => {
-      const el = document.getElementById(item.id)
-      if (el) observer.observe(el)
-    })
-    return () => observer.disconnect()
-  }, [])
-
-  // Floating highlight indicator follows the active link
-  useEffect(() => {
-    const el = itemRefs.current[active]
-    if (el) {
-      const parent = el.parentElement as HTMLElement
-      if (parent) {
-        setIndicator({ top: parent.offsetTop, height: parent.offsetHeight })
-      }
-    }
-  }, [active, itemRefs])
-
-  useEffect(() => {
-    const onResize = () => {
-      const el = itemRefs.current[active]
-      if (el) {
-        const parent = el.parentElement as HTMLElement
-        if (parent) setIndicator({ top: parent.offsetTop, height: parent.offsetHeight })
-      }
-    }
-    window.addEventListener("resize", onResize)
-    return () => window.removeEventListener("resize", onResize)
-  }, [active, itemRefs])
-
-  // Close drawer when navigating (mobile)
-  useEffect(() => {
-    const handler = () => setOpen(false)
-    window.addEventListener("hashchange", handler)
-    return () => window.removeEventListener("hashchange", handler)
-  }, [])
+  const itemRefs = useRef<Record<string, HTMLButtonElement | null>>({})
 
   const InfoCard = (
-    <div className="p-6 transition-all duration-300 hover:shadow-xl">
-      <div className="flex flex-col justify-center items-center gap-3">
+    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/12 via-white/5 to-transparent p-5">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(139,92,246,0.35),transparent_60%)] opacity-70" aria-hidden />
+      <div className="relative flex flex-col items-center gap-3 text-center">
         <Image
           src="/a5f91e31-86b7-43d2-b1b7-9dcaab74b830.png"
           alt="Avatar"
-          width={48}
-          height={48}
-          className="h-12 w-12 rounded-full object-cover ring-2 ring-violet-300 dark:ring-violet-600 shadow-md transition-transform duration-500 hover:scale-105"
+          width={56}
+          height={56}
+          className="h-14 w-14 rounded-full object-cover ring-2 ring-violet-400/70 shadow-lg"
           priority
         />
-        <div className="text-center">
-          <p className="text-xl font-semibold transition-all duration-300 hover:from-violet-500 hover:to-emerald-300">
-            Minh Anh
-          </p>
-          <p className="text-xl text-gray-500 dark:text-gray-300 truncate">AI Engineer</p>
+        <div>
+          <p className="text-lg font-semibold text-white">Minh Anh</p>
+          <p className="text-sm text-white/70">AI Engineer · Product Builder</p>
+        </div>
+        <div className="flex flex-wrap justify-center gap-2 text-xs text-white/70">
+          <span className="rounded-full border border-white/20 px-3 py-1">Ha Noi</span>
+          <span className="rounded-full border border-white/20 px-3 py-1">Open to work</span>
         </div>
       </div>
     </div>
@@ -214,86 +169,45 @@ export default function Sidebar() {
   }
 
   const NavList = (
-    <div className="relative p-6">
-      {/* Floating active pill */}
-      <div
-        className="pointer-events-none absolute left-1 right-1 rounded-md bg-gradient-to-r from-[--foreground]/10 to-transparent transition-all duration-300 ease-out"
-        style={{ top: indicator.top + 3, height: indicator.height - 6 }}
-        aria-hidden="true"
-      />
-      <ul className="space-y-1.5 relative z-10">
+    <div className="relative px-4 py-6">
+      <div className="absolute left-6 top-6 bottom-6 hidden sm:block w-px bg-gradient-to-b from-violet-400/40 via-white/10 to-transparent" aria-hidden />
+      <ul className="relative z-10 space-y-2">
         {navItems.map((item) => (
-          <li key={item.id} className="relative">
-            <Link
-              href={`#${item.id}`}
+          <li key={item.id} className="relative pl-8">
+            <button
+              type="button"
               ref={(el) => {
                 itemRefs.current[item.id] = el
               }}
-              onClick={(e) => {
-                setActive(item.id)
-                const target = document.getElementById(item.id)
-                if (target) {
-                  e.preventDefault()
-                  // Scroll to the section with smooth behavior
-                  const wrapper = target.closest('[id$="-wrapper"]') as HTMLElement
-                  if (wrapper) {
-                    wrapper.scrollIntoView({ 
-                      behavior: 'smooth', 
-                      block: 'center' 
-                    })
-                  } else {
-                    target.scrollIntoView({ 
-                      behavior: 'smooth', 
-                      block: 'center' 
-                    })
-                  }
-                  // Update URL hash
-                  setTimeout(() => {
-                    if (window.location.hash !== `#${item.id}`) {
-                      window.history.pushState(null, '', `#${item.id}`)
-                    }
-                  }, 100)
-                }
+              onClick={() => {
+                onSelect(item.id)
+                setOpen(false)
               }}
               className={cn(
-                "group block rounded-md pl-8 pr-3 py-2 text-md",
-                "transition-colors motion-safe:transition-transform motion-safe:duration-300",
-                "outline-none focus-visible:ring-2 focus-visible:ring-[--foreground]/30",
-                active === item.id
-                  ? "text-[--foreground]"
-                  : "text-[--foreground]/80 hover:text-[--foreground] hover:translate-x-[2px]"
+                "group flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium tracking-wide transition-all duration-300 border border-transparent",
+                activeSection === item.id
+                  ? "text-white bg-white/8 shadow-[0_15px_30px_-20px_rgba(0,0,0,0.85)] border-white/20"
+                  : "text-white/60 hover:text-white hover:translate-x-1 hover:border-white/10"
               )}
-              aria-current={active === item.id ? "page" : undefined}
+              aria-current={activeSection === item.id ? "page" : undefined}
             >
-              <span className="relative inline-flex items-center gap-2">
-                <span className={cn(
-                  "rounded-full p-1.5 transition-transform duration-300 bg-gradient-to-br ring-1 shadow-sm",
-                  active === item.id
-                    ? "scale-105 from-violet-500/40 to-emerald-400/40 ring-violet-500/30 text-white"
-                    : "group-hover:scale-105 from-violet-500/20 to-emerald-400/20 ring-[--foreground]/10 text-[--foreground]"
-                )}>
-                  {iconFor(item.id, active === item.id)}
+              <span className="relative inline-flex items-center gap-3">
+                <span
+                  className={cn(
+                    "rounded-full p-2 transition-all duration-300 ring-1 shadow-sm",
+                    activeSection === item.id
+                      ? "scale-105 bg-gradient-to-br from-[#1f2933] via-[#151922] to-[#0c0f16] ring-white/15 text-white"
+                      : "bg-[#0b0e15] ring-white/5 text-white/60 group-hover:scale-105 group-hover:bg-[#141824]"
+                  )}
+                >
+                  {iconFor(item.id, activeSection === item.id)}
                 </span>
-                <span className="relative">
+                <span className={cn("relative text-base", activeSection === item.id ? "text-white" : "text-white/70")}>
                   {item.label}
-                  <span
-                    className={cn(
-                      "pointer-events-none absolute -bottom-0.5 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[--foreground]/40 to-transparent",
-                      active === item.id ? "opacity-100" : "opacity-0 group-hover:opacity-70 motion-safe:transition-opacity"
-                    )}
-                    aria-hidden="true"
-                  />
                 </span>
               </span>
-            </Link>
-            {/* Left rail accent knob */}
-            <span
-              className={cn(
-                "pointer-events-none absolute left-1.5 top-1/2 -translate-y-1/2 h-2.5 w-2.5 rounded-full transition-all duration-300 ease-out bg-gradient-to-br from-violet-500 to-emerald-400 shadow-[0_0_10px_rgba(139,92,246,0.35)]",
-                active === item.id ? "opacity-100 scale-100" : "opacity-0 scale-75"
-              )}
-              aria-hidden="true"
-            />
+              <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">0{navItems.indexOf(item) + 1}</span>
+            </button>
           </li>
         ))}
       </ul>
@@ -345,32 +259,51 @@ export default function Sidebar() {
             open ? "translate-x-0" : "-translate-x-full"
           )}
         >
-          <nav
-            className={cn(
-              "relative rounded-xl p-3 bg-white h-full",
-              "ring-1 ring-black/10 dark:ring-white/10"
-            )}
-          >
-            {InfoCard}
-            <div className="my-2 h-px bg-[--foreground]/10" />
-            {NavList}
+          <nav className="flex h-full flex-col rounded-[24px] border border-white/10 bg-[#05060d]">
+            <div className="p-4">{InfoCard}</div>
+            <div className="flex-1 overflow-auto">{NavList}</div>
           </nav>
         </aside>
       </div>
 
       {/* Desktop / tablet sidebar */}
       <aside className="hidden md:block sticky top-0 self-start h-screen w-full sm:w-[280px] lg:w-[320px]">
-        <nav
-          className={cn(
-            "relative h-full rounded-xl overflow-auto",
-            "glass",
-            "ring-1 ring-black/10 dark:ring-white/10"
-          )}
-          aria-label="Mục lục"
-        >
-          {InfoCard}
-          <div className="border-t w-full border-gray-200" />
-          {NavList}
+        <nav className="relative flex h-full flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[#05060d]/80 shadow-[0_20px_80px_-40px_rgba(0,0,0,0.85)]">
+          <div className="p-4">{InfoCard}</div>
+          <div className="flex-1 overflow-auto">{NavList}</div>
+          <div className="border-t border-white/10 px-6 py-5">
+            <div className="text-xs uppercase tracking-[0.3em] text-white/40">Current section</div>
+            <div className="mt-2 flex items-center justify-between text-sm text-white">
+              <span>{navItems.find((n) => n.id === activeSection)?.label}</span>
+              <span>
+                {navItems.findIndex((n) => n.id === activeSection) + 1}/{navItems.length}
+              </span>
+            </div>
+            <div className="mt-3 flex gap-2 text-xs text-white/70">
+              <button
+                type="button"
+                onClick={() => {
+                  const currentIndex = navItems.findIndex((item) => item.id === activeSection)
+                  const prevItem = navItems[currentIndex - 1]
+                  if (prevItem) onSelect(prevItem.id)
+                }}
+                className="flex-1 rounded-xl border border-white/15 px-3 py-2 transition hover:border-white/40"
+              >
+                Prev
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const currentIndex = navItems.findIndex((item) => item.id === activeSection)
+                  const nextItem = navItems[currentIndex + 1]
+                  if (nextItem) onSelect(nextItem.id)
+                }}
+                className="flex-1 rounded-xl border border-white/15 px-3 py-2 transition hover:border-white/40"
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </nav>
       </aside>
     </>

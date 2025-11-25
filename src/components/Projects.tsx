@@ -1,7 +1,7 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { cardItem, sectionContainer } from "@/lib/motion"
+import { motion, type Variants } from "framer-motion"
+import { cardItem } from "@/lib/motion"
 
 type Project = {
   title: string
@@ -51,61 +51,104 @@ const projects: Project[] = [
   },
 ]
 
+const firstGroup = projects.slice(0, 3)
+const secondGroup = projects.slice(3)
+
+const slideShell = "w-full max-w-[72rem] mx-auto px-2 sm:px-4 lg:px-8"
+
+const slideVariant: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+export function ProjectsIntro() {
+  return (
+    <motion.div className={slideShell} variants={slideVariant} initial="hidden" animate="visible">
+      <header className="space-y-3">
+        <p className="text-sm uppercase tracking-[0.3em] text-white/60">Projects</p>
+        <h2 className="text-3xl sm:text-4xl font-semibold text-white">AI products across industries</h2>
+        <p className="text-base text-white/65 max-w-3xl">
+          Shipping copilots, automation, and platform tooling with measurable impact.
+        </p>
+      </header>
+
+      <div className="mt-10 grid gap-5 md:grid-cols-2">
+        {firstGroup.map((project) => (
+          <ProjectCard key={project.title} project={project} />
+        ))}
+      </div>
+    </motion.div>
+  )
+}
+
+export function ProjectsShowcase() {
+  return (
+    <motion.div className={slideShell} variants={slideVariant} initial="hidden" animate="visible">
+      <header className="space-y-2">
+        <p className="text-sm uppercase tracking-[0.3em] text-white/60">More builds</p>
+        <h3 className="text-2xl sm:text-3xl font-semibold text-white">Scale, compliance, and creativity</h3>
+      </header>
+      <div className="mt-10 grid gap-5 md:grid-cols-2">
+        {secondGroup.map((project) => (
+          <ProjectCard key={project.title} project={project} />
+        ))}
+      </div>
+      <p className="mt-8 text-sm text-white/50">
+        Need details on a specific build? Happy to walk through architecture diagrams and results on a call.
+      </p>
+    </motion.div>
+  )
+}
+
 export default function Projects() {
   return (
-    <section id="projects" className="w-full max-w-5xl mx-auto scroll-mt-24">
-      <motion.div
-        variants={sectionContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        className="rounded-[32px] border border-white/10 bg-[#0b0d16]/90 p-8 sm:p-12"
-      >
-        <header className="space-y-3">
-          <p className="text-sm uppercase tracking-[0.3em] text-white/60">Projects</p>
-          <h2 className="text-3xl sm:text-4xl font-semibold text-white">Select work shipped recently</h2>
-          <p className="text-base text-white/65 max-w-3xl">
-            A sample of AI systems spanning copilots, automation, and platform work. Every project balances research-grade accuracy with polished UX.
-          </p>
-        </header>
+    <div className="space-y-12">
+      <ProjectsIntro />
+      <ProjectsShowcase />
+    </div>
+  )
+}
 
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
-          {projects.map((project) => (
-            <motion.article
-              key={project.title}
-              variants={cardItem}
-              whileHover={{ y: -6 }}
-              className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:border-violet-300/40 hover:bg-white/[0.05]"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                  <p className="mt-2 text-sm text-white/70">{project.description}</p>
-                </div>
-                {project.href && (
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-xs uppercase tracking-[0.2em] text-white/60 hover:text-white"
-                  >
-                    live ↗
-                  </a>
-                )}
-              </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs text-white/80">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-4 text-sm text-emerald-300">{project.impact}</p>
-            </motion.article>
-          ))}
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <motion.article
+      variants={cardItem}
+      whileHover={{ y: -6 }}
+      className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all hover:border-violet-300/40 hover:bg-white/[0.05]"
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+          <p className="mt-2 text-sm text-white/70">{project.description}</p>
         </div>
-      </motion.div>
-    </section>
+        {project.href && (
+          <a
+            href={project.href}
+            target="_blank"
+            rel="noreferrer"
+            className="text-xs uppercase tracking-[0.2em] text-white/60 hover:text-white"
+          >
+            live ↗
+          </a>
+        )}
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {project.tags.map((tag) => (
+          <span key={tag} className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs text-white/80">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <p className="mt-4 text-sm text-emerald-300">{project.impact}</p>
+    </motion.article>
   )
 }
 

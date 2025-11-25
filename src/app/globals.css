@@ -18,10 +18,7 @@
 }
 
 body {
-  background: radial-gradient(circle at 20% 20%, rgba(129, 140, 248, 0.2), transparent 45%),
-    radial-gradient(circle at 80% 0%, rgba(16, 185, 129, 0.2), transparent 40%),
-    radial-gradient(circle at 50% 120%, rgba(245, 158, 11, 0.12), transparent 45%),
-    linear-gradient(120deg, #05060d 0%, #030409 40%, #06060f 100%);
+  background: #000000;
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   min-height: 100vh;

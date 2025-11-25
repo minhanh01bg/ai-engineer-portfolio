@@ -12,13 +12,12 @@ const skillGroups: { category: string; level: string; description: string; items
 
 export default function Skills() {
   return (
-    <section id="skills" className="w-full max-w-5xl mx-auto scroll-mt-24">
+    <section id="skills" className="w-full max-w-[72rem] mx-auto px-2 sm:px-4 lg:px-8 scroll-mt-24">
       <motion.div
         variants={sectionContainer}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-        className="rounded-[32px] border border-white/10 bg-gradient-to-br from-[#141726]/90 to-[#0d0f18]/90 p-8 sm:p-12 backdrop-blur"
+        animate="visible"
+        className="space-y-10"
       >
         <header className="space-y-3">
           <p className="text-sm uppercase tracking-[0.3em] text-white/60">Core stack</p>

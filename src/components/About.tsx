@@ -23,20 +23,11 @@ const metrics = [
 
 export default function About() {
   return (
-    <section id="about" className="relative w-full max-w-5xl mx-auto scroll-mt-24">
-      <motion.div
-        className="relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-[#1c1d2b] via-[#11121d] to-[#090a11] p-8 sm:p-12 shadow-[0_20px_80px_-40px_rgba(15,15,30,0.8)]"
-        variants={sectionContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-      >
-        <div className="absolute -left-32 top-10 h-64 w-64 rounded-full bg-violet-500/30 blur-[120px]" aria-hidden />
-        <div className="absolute -right-20 -bottom-10 h-64 w-64 rounded-full bg-emerald-400/20 blur-[120px]" aria-hidden />
-
-        <motion.div variants={fadeInUp(0)} className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between relative">
+    <section id="about" className="w-full max-w-[72rem] mx-auto px-2 sm:px-4 lg:px-8 scroll-mt-24">
+      <motion.div variants={sectionContainer} initial="hidden" animate="visible" className="space-y-10">
+        <motion.div variants={fadeInUp(0)} className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.2em] text-white/70">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-1 text-xs uppercase tracking-[0.2em] text-white/70">
               Portfolio 2025
             </div>
             <h1 className="text-4xl sm:text-5xl font-semibold leading-tight text-white">
@@ -59,7 +50,7 @@ export default function About() {
             variants={cardItem}
             className="relative mt-4 lg:mt-0"
           >
-            <div className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur">
               <p className="text-white/60 text-sm">Currently available for</p>
               <p className="text-white text-2xl font-semibold mt-1">AI product engineering</p>
               <div className="mt-4 space-y-2 text-sm text-white/70">
@@ -84,7 +75,7 @@ export default function About() {
             <motion.div
               key={metric.label}
               variants={cardItem}
-              className="rounded-2xl border border-white/15 bg-white/[0.04] p-4 text-center backdrop-blur hover:border-white/30 transition-colors"
+              className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-center backdrop-blur hover:border-white/30 transition-colors"
             >
               <div className="text-3xl font-semibold text-white">{metric.value}</div>
               <p className="text-xs uppercase tracking-[0.2em] text-white/60 mt-1">{metric.label}</p>
@@ -100,7 +91,7 @@ export default function About() {
             <motion.div
               key={pillar.title}
               variants={cardItem}
-              className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-4 text-white/80 hover:border-white/30 transition-all"
+              className="rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-white/80 hover:border-white/30 transition-all"
             >
               <p className="text-sm font-semibold text-white">{pillar.title}</p>
               <p className="mt-2 text-sm text-white/70">{pillar.desc}</p>
