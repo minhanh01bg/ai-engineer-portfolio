@@ -1,14 +1,22 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import { useState } from "react"
 
 const slideShell = "w-full max-w-[72rem] mx-auto px-2 sm:px-4 lg:px-8"
 
-const fadeVariant = {
+const fadeVariant: Variants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.1 } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+      staggerChildren: 0.1,
+    },
+  },
 }
 
 const contactMethods = [
